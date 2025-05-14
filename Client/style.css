@@ -1,0 +1,270 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+ header{
+    background-image:url(./assete/img/header-carambar.png) ;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 18vh;
+    display: flex;
+    align-items: center ;
+    justify-content: flex-end;
+}
+
+.header-btn-container{
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+
+}
+ 
+
+.btn-header {
+    width: 30%;
+    border-color: rgba(208, 28, 109, 0.824);
+    border-radius: 20pt;
+    color: #f60b0b;
+    background-color: #e9e6ca;
+    font-size: large;
+    cursor: pointer;
+    box-shadow: #524d4d75 3px 2px 3px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(239, 10, 132);
+    color: #333;
+    text-align: center;
+
+}
+
+.main-img{
+
+    background-image: url(./assete/img/GRAND_JEU_CARAMBAR__2_.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 20%;
+    border: 2px solid #f60b0b;
+
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 3em;
+    color: #ffea07;
+    text-shadow: #524d4d75 3px 2px 3px;
+}
+
+.blague-carambar-container{
+
+    padding: 5%;
+}
+
+
+
+#blaguesContainer {
+    
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.blague-container {
+    
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 15px;
+    width: 90%;
+    max-width: 500px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+        
+}
+
+.blague-container p {
+    margin: 0;
+    font-size: 1em;
+}
+        
+.reponse-image {
+    width: 17%;
+    height: 15%;
+    cursor: pointer;
+    margin-left: 10px;
+        
+}
+        
+#boutonNouvelleBlague {
+    background-color: #4CAF50;
+    color: #ffe500;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    box-shadow: #524d4d75 3px 2px 3px;
+        
+}
+        
+#boutonNouvelleBlague:hover {
+    background-color: #e1ea36;
+    color: #d92f2f;
+    
+}
+        
+#popupReponse {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #000;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    text-align: center;
+    max-width: 90%;
+        
+}
+        
+#popupReponse p {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #333;
+        
+}
+       
+#popupReponse button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+        
+}
+       
+#popupReponse button:hover {
+    background-color: #d32f2f;
+}
+
+.AjouterBlagues{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 5%;
+    flex-direction: column;
+            
+    
+}
+
+#NewBlagues {
+    width: 33%;
+    font-size: large;
+    padding: 1%;
+    border-radius: 10pt;
+}
+
+#NewResponse {
+    width: 33%;
+    font-size: large;
+    padding: 1%;
+    border-radius: 10pt;
+}
+
+label{
+    font-size: 1.1rem;
+    color: aliceblue;
+    margin: 1%;
+}
+
+#ajout-btn{
+    border-radius: 20pt;
+    border-color: #ffea07;
+    width: 12%;
+    padding: 1%;
+    color: red;
+    cursor: pointer;
+    margin-top: 1%;
+}
+
+#ajout-btn:hover{
+    background-color: #d32f2f;
+    color: aliceblue;
+    box-shadow: #524d4d75 3px 2px 3px;
+
+}
+
+.footer-container{
+    width: 100%;
+    background-color: #fce73a;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.footer-btn-container{
+        width: 90%;
+}
+
+.btn-footer{
+    cursor: pointer;
+    border-style: hidden;
+    background-color: #fce73a;
+    width: 25%;
+    color: #f60b0b;
+    text-shadow: #524d4d75 3px 2px 3px;
+    font-size: 1rem;
+}
+
+.btn-footer:hover{
+    color:rgb(255, 255, 255);
+    font-weight: 700;
+    
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 600px) {
+            
+    .blague-container {
+                
+        width: 95%;
+            
+    }
+            
+    #popupReponse {
+                
+        width: 95%;
+        left: 5%;
+        transform: translate(0, -50%);
+            
+    }
+        
+}
