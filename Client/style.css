@@ -184,6 +184,13 @@ h1 {
     border-radius: 10pt;
 }
 
+#NewBlague{
+    width: 33%;
+    font-size: large;
+    padding: 1%;
+    border-radius: 10pt;
+}
+
 #NewResponse {
     width: 33%;
     font-size: large;
