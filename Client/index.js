@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => loadHTMLTable(data['data']))
         .catch(error => console.error('Erreur lors du chargement des blagues:', error));
 
-    // Initialiser les blagues aléatoires (si vous voulez qu'elles s'affichent au chargement)
+   
     afficherBlagueAleatoireAvecReponse();
 });
 
