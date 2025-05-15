@@ -1,7 +1,9 @@
+// Server/dbService.js
 const mysql = require('mysql');
 const dotenv = require('dotenv');
-let instance = null;
 dotenv.config();
+
+let instance = null;
 
 const connection = mysql.createConnection({
   host: process.env.HOST,
@@ -11,38 +13,62 @@ const connection = mysql.createConnection({
   port: process.env.DB_PORT
 });
 
-connection.connect((error) =>{
-  if (error){
-    console.log(error.message)
+connection.connect((error) => {
+  if (error) {
+    console.error('Erreur de connexion à la base de données:', error.message);
+    return;
   }
-  console.log('db' + connection.state);
+  console.log('Connecté à la base de données ! État : ' + connection.state);
 });
 
-class DbService{
-  static getDbServiceInstance(){
-
-    return instance ? instance : new DbService();
-
+class DbService {
+  static getDbServiceInstance() {
+    if (!instance) {
+      instance = new DbService();
+    }
+    return instance;
   }
 
-  async getAllDta(){
-
+  async getAllDta() {
     try {
-        const response = await new Promise ((resolve, reject) => {
-          const query = " SELECT * FROM blagues";
-          connection.query(query, (err, results)=> {
-
-            if (err) reject (new Error(err.message));
-            resolve(results);
-          })
+      const response = await new Promise((resolve, reject) => {
+        // Correction du nom de la table ici
+        const query = "SELECT * FROM Carambare_blagues";
+        connection.query(query, (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
         });
-        // console.log(response);
-        return response ;
+      });
+      return response;
+    } catch (error) {
+      console.error("Erreur dans getAllDta:", error);
+      throw error;
+    }
+  }
 
-    }catch (error){
-      console.log(error)
+  async insertNewJoke(blague, response) {
+    try {
+      const date_creation = new Date();
+      const insertResult = await new Promise((resolve, reject) => {
+        // Correction du nom de la table ici
+        const query = "INSERT INTO Carambare_blagues (blagues, response, date_creation) VALUES (?, ?, ?)";
+        connection.query(query, [blague, response, date_creation], (err, result) => {
+          if (err) reject(new Error(err.message));
+          resolve(result.insertId);
+        });
+      });
+      return {
+        id: insertResult,
+        blagues: blague,
+        response: response,
+        date_creation: date_creation
+      };
+    } catch (error) {
+      console.error("Erreur dans insertNewJoke:", error);
+      throw error;
     }
   }
 }
 
 module.exports = DbService;
+
