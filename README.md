@@ -8,6 +8,7 @@ Node.js : v18 ou supérieur
 npm : v8 ou supérieur
 MySQL : v8.0 ou supérieur
 
+
 #Description
 
 Cette application est un serveur construit avec Node.js, Express et MySQL. 
@@ -36,11 +37,11 @@ Créez un fichier .env à la racine du projet.
 
 Ajoutez les variables d'environnement nécessaires (par exemple, les détails de la base de données).
 
-PORT=5000
-DB_HOST=localhost
-DB_USER=votre_nom_d'utilisateur
-DB_PASSWORD=votre_mot_de_passe
-DB_NAME=nom_de_la_base_de_données
+#PORT=5000
+#DB_HOST=localhost
+#DB_USER=votre_nom_d'utilisateur
+#DB_PASSWORD=votre_mot_de_passe
+#DB_NAME=nom_de_la_base_de_données
 
 Exécutez l'application : npm start (ou npm run dev si vous avez configuré nodemon)
 
