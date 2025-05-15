@@ -4,6 +4,7 @@
 // Éléments pour l'affichage et la navigation des blagues
 const blaguesContainer = document.getElementById('blaguesContainer');
 const boutonNouvelleBlague = document.getElementById('boutonNouvelleBlague');
+const boutonBlagueSuivante = document.getElementById('boutonBlagueSuivante'); 
 
 // Éléments pour la popup de réponse
 const popupReponse = document.getElementById('popupReponse');
@@ -11,68 +12,72 @@ const contenuReponse = document.getElementById('contenuReponse');
 const fermerPopup = document.getElementById('fermerPopup');
 
 // Éléments pour la MODALE D'AJOUT DE BLAGUE
-const ajouterBlagueBDDButton = document.getElementById('ajouterBlagueBDD'); // Nouveau bouton déclencheur
-const addJokeModal = document.getElementById('addJokeModal');             // L'overlay de la modale
-const closeModalSpan = document.querySelector('.close-modal');            // La croix pour fermer la modale
+const ajouterBlagueBDDButton = document.getElementById('ajouterBlagueBDD');
+const addJokeModal = document.getElementById('addJokeModal');
+const closeModalSpan = document.querySelector('.close-modal');
 
 // Éléments pour le formulaire d'ajout de blague (à l'intérieur de la modale)
 const addbtn = document.querySelector('#ajout-btn');
 const newBlagueInput = document.querySelector('#NewBlague');
 const newResponseInput = document.querySelector('#NewResponse');
 
-// Chemin de l'image pour l'icône de réponse (assure-toi que ce chemin est correct)
 const imageReponseSrc = './assete/img/response.png';
 
 // --- 2. Données des Blagues ---
 let toutesLesBlagues = [];
-
+let blaguesOrdonnees = []; 
+let currentJokeIndex = 0; 
 const blaguesStatiques = [
-    { blagues: " Quelle est la femelle du hamster ?", response: "L’Amsterdam" },
-    { blagues: " Que dit un oignon quand il se cogne ?", response: "Aïe" },
-    { blagues: " Quel est l'animal le plus heureux ?", response: "Le hibou, parce que sa femme est chouette." },
-    { blagues: " Pourquoi le football c'est rigolo ?", response: "Parce que Thierry en rit" },
-    { blagues: " Quel est le sport le plus fruité ?", response: "La boxe, parce que tu te prends des pêches dans la poire et tu tombes dans les pommes." },
-    { blagues: " Que se fait un Schtroumpf quand il tombe ?", response: "Un Bleu" },
-    { blagues: " Quel est le comble pour un marin ?", response: "Avoir le nez qui coule" },
-    { blagues: " Qu'est ce que les enfants usent le plus à l'école ?", response: "Le professeur" },
-    { blagues: " Quel est le sport le plus silencieux ?", response: "Le para-chuuuut" },
-    { blagues: " Quel est le comble pour un joueur de bowling ?", response: "C’est de perdre la boule" }
+    { id: 1, blagues: "Quelle est la femelle du hamster ?", response: "L’Amsterdam" },
+    { id: 2, blagues: "Que dit un oignon quand il se cogne ?", response: "Aïe" },
+    { id: 3, blagues: "Quel est l'animal le plus heureux ?", response: "Le hibou, parce que sa femme est chouette." },
+    { id: 4, blagues: "Pourquoi le football c'est rigolo ?", response: "Parce que Thierry en rit" },
+    { id: 5, blagues: "Quel est le sport le plus fruité ?", response: "La boxe, parce que tu te prends des pêches dans la poire et tu tombes dans les pommes." },
+    { id: 6, blagues: "Que se fait un Schtroumpf quand il tombe ?", response: "Un Bleu" },
+    { id: 7, blagues: "Quel est le comble pour un marin ?", response: "Avoir le nez qui coule" },
+    { id: 8, blagues: "Qu'est ce que les enfants usent le plus à l'école ?", response: "Le professeur" },
+    { id: 9, blagues: "Quel est le sport le plus silencieux ?", response: "Le para-chuuuut" },
+    { id: 10, blagues: "Quel est le comble pour un joueur de bowling ?", response: "C’est de perdre la boule" }
 ];
 
 // --- 3. Initialisation de l'Application ---
 document.addEventListener('DOMContentLoaded', async function() {
     // Vérifie que tous les éléments essentiels existent avant de les utiliser
-    if (!blaguesContainer || !boutonNouvelleBlague || !popupReponse || !contenuReponse || !fermerPopup || 
+    if (!blaguesContainer || !boutonNouvelleBlague || !boutonBlagueSuivante || !popupReponse || !contenuReponse || !fermerPopup ||
         !ajouterBlagueBDDButton || !addJokeModal || !closeModalSpan || !addbtn || !newBlagueInput || !newResponseInput) {
         console.error("Un ou plusieurs éléments HTML nécessaires n'ont pas été trouvés. Vérifiez les IDs/classes.");
         if (blaguesContainer) {
             blaguesContainer.innerHTML = '<p>Erreur: L\'application ne peut pas démarrer correctement. Vérifiez la console pour plus de détails.</p>';
         }
-        return; 
+        return;
     }
 
     await chargerToutesLesBlagues(); // Charge les blagues au démarrage (DB + statiques)
-    afficherBlagueAleatoire();        // Affiche une première blague
-    
+    afficherBlagueAleatoire();        // Affiche une première blague aléatoire
+
     // Ajout des écouteurs d'événements
     boutonNouvelleBlague.addEventListener('click', afficherBlagueAleatoire);
+    boutonBlagueSuivante.addEventListener('click', afficherBlagueSuivante);
     fermerPopup.addEventListener('click', fermerLaPopup);
-    addbtn.onclick = handleAddJoke; 
+    addbtn.onclick = handleAddJoke;
 
     // Écouteurs d'événements pour la MODALE
-    ajouterBlagueBDDButton.addEventListener('click', openAddJokeModal); // Ouvre la modale
-    closeModalSpan.addEventListener('click', closeAddJokeModal);     // Ferme avec la croix
-    addJokeModal.addEventListener('click', (event) => {              // Ferme en cliquant en dehors
+    ajouterBlagueBDDButton.addEventListener('click', openAddJokeModal);
+    closeModalSpan.addEventListener('click', closeAddJokeModal);
+    addJokeModal.addEventListener('click', (event) => {
         if (event.target === addJokeModal) {
             closeAddJokeModal();
         }
     });
 });
 
-// --- 4. Fonctions de Gestion des Blagues (inchangées par rapport à la version précédente) ---
+// --- 4. Fonctions de Gestion des Blagues ---
 
 async function chargerToutesLesBlagues() {
+    // Commence par les blagues statiques
     toutesLesBlagues = [...blaguesStatiques];
+    blaguesOrdonnees = [...blaguesStatiques]; 
+
     try {
         const response = await fetch('http://localhost:5000/getAll');
         if (!response.ok) {
@@ -80,9 +85,21 @@ async function chargerToutesLesBlagues() {
             throw new Error(`Erreur HTTP: ${response.status} - ${errorText || 'Réponse du serveur non lisible.'}`);
         }
         const data = await response.json();
+
         if (data && Array.isArray(data.data) && data.data.length > 0) {
-            toutesLesBlagues = toutesLesBlagues.concat(data.data);
-            console.log(`Blagues chargées depuis la DB : ${data.data.length}`);
+            // Pour les blagues de la BDD, assurez-vous qu'elles ont bien un 'id'
+            // et que leurs propriétés correspondent à 'blagues' et 'response'.
+            // Si votre base de données utilise 'blague_text' au lieu de 'blagues',
+            // ou 'reponse_text' au lieu de 'response', vous devrez adapter ici.
+            const jokesFromDb = data.data.map(joke => ({
+                id: joke.id, // Assurez-vous que l'ID est correct
+                blagues: joke.blagues, // Assurez-vous que le nom de colonne est correct
+                response: joke.response // Assurez-vous que le nom de colonne est correct
+            }));
+
+            toutesLesBlagues = toutesLesBlagues.concat(jokesFromDb);
+            blaguesOrdonnees = blaguesOrdonnees.concat(jokesFromDb);
+            console.log(`Blagues chargées depuis la DB : ${jokesFromDb.length}`);
         } else {
             console.log('Aucune blague à charger depuis la base de données ou données non valides.');
         }
@@ -92,10 +109,14 @@ async function chargerToutesLesBlagues() {
             blaguesContainer.innerHTML = '<p>Impossible de charger les blagues pour le moment. Veuillez réessayer plus tard. (Erreur DB)</p>';
         }
     }
+
     shuffleArray(toutesLesBlagues);
     console.log(`Nombre total de blagues disponibles : ${toutesLesBlagues.length}`);
 }
 
+/**
+ * Affiche une blague aléatoire tirée du tableau `toutesLesBlagues`.
+ */
 function afficherBlagueAleatoire() {
     if (toutesLesBlagues.length === 0) {
         if (blaguesContainer) {
@@ -106,19 +127,58 @@ function afficherBlagueAleatoire() {
     blaguesContainer.innerHTML = '';
     const indexAleatoire = Math.floor(Math.random() * toutesLesBlagues.length);
     const blagueAffichee = toutesLesBlagues[indexAleatoire];
+    renderJoke(blagueAffichee);
+}
 
+/**
+ * Affiche la blague suivante dans l'ordre séquentiel.
+ */
+function afficherBlagueSuivante() {
+    if (blaguesOrdonnees.length === 0) {
+        if (blaguesContainer) {
+            blaguesContainer.innerHTML = '<p>Aucune blague disponible pour le moment.</p>';
+        }
+        return;
+    }
+
+    blaguesContainer.innerHTML = '';
+
+    if (currentJokeIndex >= blaguesOrdonnees.length) {
+        currentJokeIndex = 0;
+    }
+
+    const blagueAffichee = blaguesOrdonnees[currentJokeIndex];
+    renderJoke(blagueAffichee);
+
+    currentJokeIndex++;
+}
+
+/**
+ * Fonction générique pour rendre une blague dans le DOM.
+ * @param {object} blague - L'objet blague à afficher. Doit avoir au moins 'blagues' et 'response',
+ * et éventuellement 'id'.
+ */
+function renderJoke(blague) {
     const blagueDiv = document.createElement('div');
-    blagueDiv.classList.add('blague-container'); 
+    blagueDiv.classList.add('blague-container');
 
     const questionElement = document.createElement('p');
-    questionElement.textContent = blagueAffichee.blagues; 
+    
+    // NOUVEAU : Affiche l'ID si disponible, sinon ne l'affiche pas
+    let blagueText = "";
+    if (blague.id !== undefined && blague.id !== null) {
+        blagueText += `${blague.id} `;
+    }
+    blagueText += blague.blagues; // Le texte de la blague sans l'ID déjà intégré
+    
+    questionElement.textContent = blagueText;
 
     const imageElement = document.createElement('img');
     imageElement.src = imageReponseSrc;
-    imageElement.classList.add('reponse-image'); 
+    imageElement.classList.add('reponse-image');
 
     imageElement.addEventListener('click', function() {
-        afficherReponse(blagueAffichee.response); 
+        afficherReponse(blague.response);
     });
 
     blagueDiv.appendChild(questionElement);
@@ -142,7 +202,7 @@ function shuffleArray(array) {
     }
 }
 
-// --- 5. Logique d'Ajout de Blague (appelée par handleAddJoke) ---
+// --- 5. Logique d'Ajout de Blague ---
 async function handleAddJoke() {
     const blagueValue = newBlagueInput.value.trim();
     const responseValue = newResponseInput.value.trim();
@@ -175,17 +235,20 @@ async function handleAddJoke() {
             alert('Blague ajoutée avec succès !');
             newBlagueInput.value = '';
             newResponseInput.value = '';
-            closeAddJokeModal(); // Ferme la modale après l'ajout réussi
+            closeAddJokeModal();
 
             const nouvelleBlagueObj = {
-                id: result.data.id || null, 
+                id: result.data.id || null, // L'ID doit être retourné par votre API Node.js/DB
                 blagues: blagueValue,
                 response: responseValue,
-                date_création: new Date().toISOString() 
+                date_création: new Date().toISOString()
             };
+
             toutesLesBlagues.push(nouvelleBlagueObj);
-            shuffleArray(toutesLesBlagues); 
-            afficherBlagueAleatoire(); 
+            blaguesOrdonnees.push(nouvelleBlagueObj);
+
+            shuffleArray(toutesLesBlagues);
+            afficherBlagueAleatoire();
         } else {
             alert('Erreur lors de l\'ajout de la blague : ' + (result.message || 'Erreur inconnue.'));
         }
@@ -195,18 +258,12 @@ async function handleAddJoke() {
     }
 }
 
-// --- NOUVELLES FONCTIONS DE GESTION DE LA MODALE ---
+// --- Fonctions de Gestion de la Modale ---
 
-/**
- * Ouvre la modale d'ajout de blague.
- */
 function openAddJokeModal() {
-    addJokeModal.style.display = 'flex'; // Change à 'flex' pour centrer avec CSS
+    addJokeModal.style.display = 'flex';
 }
 
-/**
- * Ferme la modale d'ajout de blague.
- */
 function closeAddJokeModal() {
-    addJokeModal.style.display = 'none'; // Cache la modale
+    addJokeModal.style.display = 'none';
 }
