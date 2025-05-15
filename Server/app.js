@@ -2,17 +2,16 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-dotenv.config(); // Charge les variables d'environnement
+dotenv.config(); 
 
-const DbService = require('./dbService'); // Importe votre service de base de données
-
+const DbService = require('./dbService'); 
 const app = express();
 
-// Middlewares
+
 app.use(cors()); // Autorise les requêtes de différentes origines
 app.use(express.json()); // Permet à Express de parser les corps de requêtes JSON
 app.use(express.urlencoded({ extended: false })); // Permet de parser les données d'URL encodées
-app.use(express.static('public'));
+app.use(express.static('public')); // Permet de servir les fichiers statiques du dossier 'public'
 
 // --- ROUTES API ---
 
