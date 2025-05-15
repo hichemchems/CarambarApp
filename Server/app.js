@@ -49,11 +49,11 @@ app.get('/getAll', async (req, res) => { // Utilisez 'async' pour la propreté
     }
 });
 
-// UPDATE (exemple - non implémenté dans votre code fourni, mais pour la structure)
-// app.patch('/update/:id', (req, res) => { /* ... */ });
+// UPDATE 
+app.patch('/update/:id', (req, res) => { /* ... */ });
 
-// DELETE (exemple - non implémenté dans votre code fourni)
-// app.delete('/delete/:id', (req, res) => { /* ... */ });
+// DELETE 
+app.delete('/delete/:id', (req, res) => { /* ... */ });
 
 // Lancez le serveur
 const PORT = process.env.PORT || 5000; // Utilise le port de .env ou 5000 par défaut
