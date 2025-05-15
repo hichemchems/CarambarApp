@@ -100,17 +100,18 @@ h1 {
 }
         
 .reponse-image {
-    width: 17%;
-    height: 15%;
+    width: 15%;
     cursor: pointer;
     margin-left: 10px;
         
 }
+
+
         
 #boutonNouvelleBlague {
     background-color: #4CAF50;
     color: #ffe500;
-    border: none;
+    border: red solid 1px;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
@@ -120,12 +121,36 @@ h1 {
     box-shadow: #524d4d75 3px 2px 3px;
         
 }
-        
+
 #boutonNouvelleBlague:hover {
     background-color: #e1ea36;
     color: #d92f2f;
+    transform: translateY(-2px);
     
 }
+
+#boutonBlagueSuivante {
+    background-color: #ffe500;
+    color: #4CAF50;
+    border: red solid 1px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    box-shadow: #524d4d75 3px 2px 3px;
+        
+}
+
+#boutonBlagueSuivante:hover {
+    background-color: #d92f2f;
+    color: #e1ea36;
+    transform: translateY(-2px);
+    
+}
+        
+
         
 #popupReponse {
     display: none;
@@ -221,35 +246,34 @@ label{
 
 /* Bouton qui déclenche la modale */
 .btn-modal-trigger {
-    background-color: #fce73a; /* Couleur jaune Carambar */
-    color: #f60b0b; /* Texte rouge */
-    border: 2px solid #d32f2f; /* Bordure rouge */
+    background-color: #fce73a; 
+    color: #f60b0b; 
+    border: 2px solid #d32f2f; 
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 20px; /* Espace au-dessus du bouton */
+    margin-top: 20px;
     box-shadow: #524d4d75 3px 2px 3px;
 }
 
 .btn-modal-trigger:hover {
-    background-color: #e1ea36; /* Jaune plus clair au survol */
-    transform: translateY(-2px); /* Léger effet de soulèvement */
+    background-color: #e1ea36; 
+    transform: translateY(-2px); 
 }
 
 
 /* Overlay de la modale (arrière-plan sombre) */
 .modal-overlay {
-    display: none; /* Caché par défaut */
-    position: fixed; /* Reste en place même au défilement */
-    z-index: 100; /* Par-dessus tout le reste */
-    left: 0;
+    display: none; 
+    position: fixed; 
+    z-index: 100; 
     top: 0;
-    width: 100%; /* Pleine largeur */
-    height: 100%; /* Pleine hauteur */
-    overflow: auto; /* Active le défilement si le contenu est trop grand */
-    background-color: rgba(0,0,0,0.6); /* Fond semi-transparent */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    /* background-color: rgba(0,0,0,0.6);  */
     justify-content: center;
     align-items: center;
 }
@@ -257,13 +281,13 @@ label{
 /* Contenu de la modale */
 .modal-content {
     border: #d92f2f solid 4px;
-    margin: auto; /* Centrage automatique avec flexbox */
-    padding: 30px;
+    margin: auto;
+    padding: 4%;
     border-radius: 12px;
-    width: 90%; /* Largeur de la modale */
-    max-width: 500px; /* Largeur maximale */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    position: relative; /* Pour positionner le bouton de fermeture */
+    width: 83%;
+    /* max-width: 80%; */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
     text-align: center;
     background-color: gold;
 }
