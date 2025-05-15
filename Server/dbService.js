@@ -13,9 +13,9 @@ const connection = mysql.createConnection({
 
 connection.connect((error) =>{
   if (error){
-    console.log(err.message)
+    console.log(error.message)
   }
-  // console.log('db' + connection.state);
+  console.log('db' + connection.state);
 });
 
 class DbService{
@@ -40,7 +40,7 @@ class DbService{
         return response ;
 
     }catch (error){
-      console.log(erreur)
+      console.log(error)
     }
   }
 }
