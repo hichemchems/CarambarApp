@@ -25,18 +25,20 @@
       <div class="main-img"></div>
       <section class="blague-carambar-container">
         <h1>Blagues Carambar</h1>
-        <div id="blaguesContainer"></div>
-        <button id="boutonNouvelleBlague">Afficher une autre blague !</button>
-        <div id="popupReponse" class="popup-reponse">
-          <table>
-            <tbody>
-              <p id="contenuReponse">BLAGUES</p>
-            </tbody>
-          </table>
-          <button id="fermerPopup">Fermer</button>
+        <div id="blaguesContainer">
+            <p>Chargement des blagues...</p>
         </div>
+        <button id="boutonNouvelleBlague">Afficher une autre blague !</button>
+
+        <div id="popupReponse" class="popup-reponse">
+            <div class="popup-content">
+                <p id="contenuReponse">BLAGUES</p>
+                <button id="fermerPopup">Fermer</button>
+            </div>
+        </div>
+
         <div class="AjouterBlagues">
-          <label for="NewBlague">Ajouter Blagues :</label>
+          <label for="NewBlague">Ajouter une Blague :</label>
           <input type="text" id="NewBlague" name="NewBlague"/>
           <label for="NewResponse">Réponse :</label>
           <input type="text" id="NewResponse" name="NewResponse"/>
@@ -51,7 +53,7 @@
           <button class="btn-footer">Action 2</button>
           <button class="btn-footer">Action 3</button>
         </div>
-        <p><p>Copyright &copy; 2025, Tous droits réservés à Hichem Djacta</p>
+        <p>Copyright &copy; 2025, Tous droits réservés à Hichem Djacta</p>
       </div>
     </footer>
     <script src="index.js"></script>
