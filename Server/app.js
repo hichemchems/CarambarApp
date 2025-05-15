@@ -1,38 +1,60 @@
-const express = require ('express');
-const app = express();
-const cors = require ('cors');
+// Server/app.js
+const express = require('express');
+const cors = require('cors');
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config(); // Charge les variables d'environnement
 
-const dbService = require('./dbService');
+const DbService = require('./dbService'); // Importe votre service de base de données
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended : false}));
+const app = express();
 
-//CRUD
+// Middlewares
+app.use(cors()); // Autorise les requêtes de différentes origines
+app.use(express.json()); // Permet à Express de parser les corps de requêtes JSON
+app.use(express.urlencoded({ extended: false })); // Permet de parser les données d'URL encodées
+app.use(express.static('public'));
 
+// --- ROUTES API ---
 
-//CREATE
-app.post('/insertt', ( request , response ) => {
-    console.log(request.body);
+// CREATE (Ajouter une blague)
+app.post('/insert', async (req, res) => { // Renommé '/insert' pour plus de clarté
+    const { blague, response } = req.body; // Récupère les données envoyées par le client
+
+    // Validation simple côté serveur (peut être plus robuste)
+    if (!blague || !response) {
+        return res.status(400).json({ success: false, message: 'Les champs blague et response sont requis.' });
+    }
+
+    const db = DbService.getDbServiceInstance();
+
+    try {
+        const result = await db.insertNewJoke(blague, response); // Appelle la nouvelle méthode
+        res.status(201).json({ success: true, data: result, message: 'Blague ajoutée avec succès.' });
+    } catch (error) {
+        console.error("Erreur lors de l'insertion de la blague :", error);
+        res.status(500).json({ success: false, message: 'Erreur interne du serveur lors de l\'insertion.' });
+    }
 });
 
-//READ
-app.get('/getAll', ( request, response) => {
-  const db = dbService.getDbServiceInstance();
+// READ (Obtenir toutes les blagues)
+app.get('/getAll', async (req, res) => { // Utilisez 'async' pour la propreté
+    const db = DbService.getDbServiceInstance();
 
-  const result = db.getAllData();
-
-  result
-  .then(data = response.json({data :data}))
-  .catch(err => console.log(err));
-  
+    try {
+        const data = await db.getAllData(); // Utilisez 'await' pour attendre la résolution de la promesse
+        res.json({ data: data });
+    } catch (err) {
+        console.error("Erreur lors de la récupération des blagues :", err);
+        res.status(500).json({ success: false, message: 'Erreur interne du serveur lors de la récupération.' });
+    }
 });
 
-//UPDATE
+// UPDATE (exemple - non implémenté dans votre code fourni, mais pour la structure)
+// app.patch('/update/:id', (req, res) => { /* ... */ });
 
+// DELETE (exemple - non implémenté dans votre code fourni)
+// app.delete('/delete/:id', (req, res) => { /* ... */ });
 
-//DELETE
-
-app.listen(process.env.PORT, () => console.log('app est active'));
+// Lancez le serveur
+const PORT = process.env.PORT || 5000; // Utilise le port de .env ou 5000 par défaut
+app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
