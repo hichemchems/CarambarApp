@@ -27,7 +27,7 @@ addbtn.onclick = async function() { // Rendre la fonction asynchrone pour utilis
     }
 
     try {
-        const response = await fetch('http://localhost:5000/insert', { // Utilisez le port de votre serveur Express
+        const response = await fetch('http://localhost:5000/insert', { // Utilisez le port du serveur Express
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -56,33 +56,40 @@ addbtn.onclick = async function() { // Rendre la fonction asynchrone pour utilis
     }
 };
 
-// --- FONCTION POUR CHARGER LA TABLE HTML (si vous l'utilisez) ---
+
+// public/index.js (Partie loadHTMLTable)
+
 function loadHTMLTable(data) {
-  const table = document.querySelector('table tbody'); // Votre HTML a un <table> mais pas de <thead> ou <tbody> clair pour les données
-                                                    // Vous devriez ajuster votre HTML si vous voulez vraiment afficher une table.
-  if (data.length === 0){
-    // Assurez-vous que l'élément 'table' existe ou ciblez 'blaguesContainer'
-    // Cet affichage est pour un <tbody> de table, mais votre HTML n'affiche pas une table de blagues
-    console.log("Aucune donnée de blague à afficher ou l'élément de table est incorrect.");
-    // table.innerHTML = "<tr><td class='no-data' colspan='5'> Aucune donnée </td></tr>";
-  } else {
-      // Si vous voulez afficher les blagues de la DB dans blaguesContainer, vous devriez itérer sur 'data'
-      // et créer des éléments HTML pour chaque blague, comme vous le faites pour les blagues statiques.
-      // Par exemple:
-      /*
-      data.forEach(blague => {
-          const blagueDiv = document.createElement('div');
-          blagueDiv.classList.add('blague-item-from-db');
-          blagueDiv.innerHTML = `<p>Question: ${blague.blagues}</p><p>Réponse: ${blague.response}</p>`;
-          blaguesContainer.appendChild(blagueDiv);
-      });
-      */
+  const table = document.querySelector('table tbody'); 
+  const blaguesContainer = document.getElementById('blaguesContainer'); 
+
+  if (!data || !Array.isArray(data) || data.length === 0){
+    console.log("Aucune donnée de blague à afficher ou données incorrectes/vides.");
+    if (blaguesContainer) { 
+        blaguesContainer.innerHTML = '<p>Aucune blague trouvée ou erreur de chargement.</p>';
+    }
+    return;
+  } 
+
+  
+  if (blaguesContainer) {
+      blaguesContainer.innerHTML = ''; 
   }
+
+  data.forEach(blague => {
+      const blagueDiv = document.createElement('div');
+      blagueDiv.classList.add('blague-item-from-db');
+      
+      
+      blagueDiv.innerHTML = `<p>Question: ${blague.blagues}</p><p>Réponse: ${blague.response}</p>`;
+      if (blaguesContainer) {
+          blaguesContainer.appendChild(blagueDiv);
+      }
+  });
 }
 
-// --- SCRIPT TEST (Vos blagues statiques Carambar) ---
-// Note : Cette section est indépendante de votre base de données.
-// Si vous voulez utiliser la DB pour ces blagues, vous devrez les insérer.
+// --- SCRIPT TEST ( blagues statiques Carambar) ---
+
 const blaguesQuestionReponse = [
     { question: "1 Quelle est la femelle du hamster ?", reponse: "L’Amsterdam" },
     { question: "2 Que dit un oignon quand il se cogne ?", reponse: "Aïe" },
