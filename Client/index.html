@@ -37,12 +37,20 @@
             </div>
         </div>
 
-        <div class="AjouterBlagues">
-          <label for="NewBlague">Ajouter une Blague :</label>
-          <input type="text" id="NewBlague" name="NewBlague"/>
-          <label for="NewResponse">Réponse :</label>
-          <input type="text" id="NewResponse" name="NewResponse"/>
-          <button id="ajout-btn">Ajouter</button>
+        <button id="ajouterBlagueBDD" class="btn-modal-trigger">Ajouter une blague</button>
+
+        <div id="addJokeModal" class="modal-overlay">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="AjouterBlagues">
+                    <h2>Ajouter une Nouvelle Blague</h2>
+                    <label for="NewBlague">Blague :</label>
+                    <input type="text" id="NewBlague" name="NewBlague"/>
+                    <label for="NewResponse">Réponse :</label>
+                    <input type="text" id="NewResponse" name="NewResponse"/>
+                    <button id="ajout-btn">Ajouter</button>
+                </div>
+            </div>
         </div>
       </section>
     </main>

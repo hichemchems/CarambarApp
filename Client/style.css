@@ -178,25 +178,20 @@ h1 {
 }
 
 #NewBlagues {
-    width: 33%;
-    font-size: large;
-    padding: 1%;
-    border-radius: 10pt;
+    width: 70%;
+    font-size: medium;
+    padding: 3%;
+    border-radius: 12pt;
 }
 
-#NewBlague{
-    width: 33%;
-    font-size: large;
-    padding: 1%;
-    border-radius: 10pt;
+#NewResponse{
+    width: 70%;
+    font-size: medium;
+    padding: 3%;
+    border-radius: 12pt;
 }
 
-#NewResponse {
-    width: 33%;
-    font-size: large;
-    padding: 1%;
-    border-radius: 10pt;
-}
+
 
 label{
     font-size: 1.1rem;
@@ -219,6 +214,140 @@ label{
     color: aliceblue;
     box-shadow: #524d4d75 3px 2px 3px;
 
+}
+
+
+/* --- Styles pour la Modale d'Ajout de Blague --- */
+
+/* Bouton qui déclenche la modale */
+.btn-modal-trigger {
+    background-color: #fce73a; /* Couleur jaune Carambar */
+    color: #f60b0b; /* Texte rouge */
+    border: 2px solid #d32f2f; /* Bordure rouge */
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px; /* Espace au-dessus du bouton */
+    box-shadow: #524d4d75 3px 2px 3px;
+}
+
+.btn-modal-trigger:hover {
+    background-color: #e1ea36; /* Jaune plus clair au survol */
+    transform: translateY(-2px); /* Léger effet de soulèvement */
+}
+
+
+/* Overlay de la modale (arrière-plan sombre) */
+.modal-overlay {
+    display: none; /* Caché par défaut */
+    position: fixed; /* Reste en place même au défilement */
+    z-index: 100; /* Par-dessus tout le reste */
+    left: 0;
+    top: 0;
+    width: 100%; /* Pleine largeur */
+    height: 100%; /* Pleine hauteur */
+    overflow: auto; /* Active le défilement si le contenu est trop grand */
+    background-color: rgba(0,0,0,0.6); /* Fond semi-transparent */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenu de la modale */
+.modal-content {
+    border: #d92f2f solid 4px;
+    margin: auto; /* Centrage automatique avec flexbox */
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%; /* Largeur de la modale */
+    max-width: 500px; /* Largeur maximale */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative; /* Pour positionner le bouton de fermeture */
+    text-align: center;
+    background-color: gold;
+}
+
+/* Bouton de fermeture (la croix) */
+.close-modal {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Styles pour le formulaire dans la modale (reprise de AjouterBlagues) */
+.modal-content .AjouterBlagues {
+    display: flex;
+    flex-direction: column; /* Organise les éléments en colonne */
+    align-items: center; /* Centre les éléments horizontalement */
+    padding-top: 0; /* Pas de padding-top ici, géré par le padding de modal-content */
+}
+
+.modal-content .AjouterBlagues label {
+    color: #ff0505;
+    margin: 10px 0 5px;
+    font-family: fangsong;
+    font-size: x-large;
+}
+
+.modal-content .AjouterBlagues input[type="text"] {
+    width: 90%;
+    font-size: large;
+    padding: 8px !important;
+    border-radius: 12pt !important;
+    border: 1px solid #e20a0a;
+    margin-bottom: 15px; 
+}
+
+.modal-content .AjouterBlagues #ajout-btn {
+    width: 30%; 
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50; 
+    color: #ffe500; 
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: #524d4d75 3px 2px 3px;
+}
+
+.modal-content .AjouterBlagues #ajout-btn:hover {
+    background-color: #e1ea36; /* Vert plus clair au survol */
+    color: #d92f2f;
+}
+
+/* Styles spécifiques pour le titre de la modale */
+.modal-content h2 {
+    color: #f60b0b; /* Rouge Carambar */
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+/* Media query pour les petits écrans dans la modale */
+@media screen and (max-width: 600px) {
+    .modal-content {
+        width: 95%;
+        padding: 20px 15px;
+    }
+
+    .modal-content .AjouterBlagues input[type="text"] {
+        width: 95%;
+    }
+
+    .modal-content .AjouterBlagues #ajout-btn {
+        width: 50%;
+    }
 }
 
 .footer-container{
