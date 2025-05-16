@@ -35,6 +35,8 @@ Configurez les variables d'environnement :
 
 Créez un fichier .env à la racine du projet.
 
+Créez une BDD MYSQL " blaguesBDD "  avec une table "Carambare_blagues"  avec (id, blagues,  date_création, response) 
+
 Ajoutez les variables d'environnement nécessaires (par exemple, les détails de la base de données).
 
 #PORT=5000
