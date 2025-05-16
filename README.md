@@ -35,14 +35,22 @@ Configurez les variables d'environnement :
 
 Créez un fichier .env à la racine du projet.
 
-Créez une BDD MYSQL " blaguesBDD "  avec une table "Carambare_blagues"  avec (id, blagues,  date_création, response) 
+#Créez une BDD MYSQL " blaguesBDD "  
+
+une table "Carambare_blagues"  
+
+avec (id, blagues,  date_création, response) 
 
 Ajoutez les variables d'environnement nécessaires (par exemple, les détails de la base de données).
 
 #PORT=5000
+
 #DB_HOST=localhost
+
 #DB_USER=votre_nom_d'utilisateur
+
 #DB_PASSWORD=votre_mot_de_passe
+
 #DB_NAME=nom_de_la_base_de_données
 
 Exécutez l'application : npm start (ou npm run dev si vous avez configuré nodemon)
