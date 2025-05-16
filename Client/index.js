@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Vérifie que tous les éléments essentiels existent avant de les utiliser
     if (!blaguesContainer || !boutonNouvelleBlague || !boutonBlagueSuivante || !popupReponse || !contenuReponse || !fermerPopup ||
         !ajouterBlagueBDDButton || !addJokeModal || !closeModalSpan || !addbtn || !newBlagueInput || !newResponseInput) {
-        console.error("Un ou plusieurs éléments HTML nécessaires n'ont pas été trouvés. Vérifiez les IDs/classes.");
+        console.error("Un ou plusieurs éléments nécessaires n'ont pas été trouvés.");
         if (blaguesContainer) {
             blaguesContainer.innerHTML = '<p>Erreur: L\'application ne peut pas démarrer correctement. Vérifiez la console pour plus de détails.</p>';
         }
