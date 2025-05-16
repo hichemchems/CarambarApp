@@ -53,6 +53,7 @@ Ajoutez les variables d'environnement nécessaires (par exemple, les détails de
 
 #DB_NAME=nom_de_la_base_de_données
 
-Exécutez l'application : npm start (ou npm run dev si vous avez configuré nodemon)
+#Exécutez l'application : depuis le terminal "cd server" et dans le dossier server "nodemon app" en environement developpement
+ (ou npm run dev si vous avez configuré nodemon)
 
 
